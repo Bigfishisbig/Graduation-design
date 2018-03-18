@@ -20,7 +20,7 @@ class Camera_reader(object):
         name_list = read_name_list('D:\myProject\pictures\dataset')
 
         #打开摄像头并开始读取画面
-        cameraCapture = cv2.VideoCapture(0)
+        cameraCapture = cv2.VideoCapture(0) # 若打开视频则将 0 换成 ‘xxxx.avi’
         success, frame = cameraCapture.read()
 
         while success and cv2.waitKey(1) == -1:
@@ -31,8 +31,10 @@ class Camera_reader(object):
                  ROI = gray[x:x + w, y:y + h]
                  ROI = cv2.resize(ROI, (self.img_size, self.img_size), interpolation=cv2.INTER_LINEAR)
                  label,prob = self.model.predict(ROI)  #利用模型对cv2识别出的人脸进行比对
+                 print ("label:", label, "prob:", prob)
                  if prob >0.7:    #如果模型认为概率高于70%则显示为模型中已有的label
                      show_name = name_list[label]
+                     print ("name:", show_name)
                  else:
                      show_name = 'Stranger'
                  cv2.putText(frame, show_name, (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, 255, 2)  #显示名字
@@ -40,7 +42,7 @@ class Camera_reader(object):
              cv2.imshow("Camera", frame)
 
         cameraCapture.release()
-        cv2.destroyAllWindows()
+        cv2.destroyAllWindows() #释放并销毁窗口
 
 if __name__ == '__main__':
     camera = Camera_reader()

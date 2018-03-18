@@ -1,5 +1,4 @@
 #-*-coding:utf8-*-
-__author__ = '万壑'
 
 import os
 import cv2
@@ -20,7 +19,7 @@ def read_file(path):
     for child_dir in os.listdir(path):
          child_path = os.path.join(path, child_dir)
 
-         for dir_image in  os.listdir(child_path):
+         for dir_image in os.listdir(child_path):
              if endwith(dir_image,'jpg'):
                 img = cv2.imread(os.path.join(child_path, dir_image))
                 resized_img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))

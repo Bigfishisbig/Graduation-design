@@ -1,5 +1,4 @@
 #-*-coding:utf8-*-
-__author__ = '万壑'
 
 from dataSet import DataSet
 from keras.models import Sequential,load_model
@@ -61,12 +60,12 @@ class Model(object):
     #进行模型训练的函数，具体的optimizer、loss可以进行不同选择
     def train_model(self):
         self.model.compile(
-            optimizer='adam',  #有很多可选的optimizer，例如RMSprop,Adagrad，你也可以试试哪个好，我个人感觉差异不大
+            optimizer= 'sgd',  #'adam'有很多可选的optimizer，例如RMSprop,Adagrad，你也可以试试哪个好，我个人感觉差异不大
             loss='categorical_crossentropy',  #你可以选用squared_hinge作为loss看看哪个好
             metrics=['accuracy'])
 
         #epochs、batch_size为可调的参数，epochs为训练多少轮、batch_size为每次训练多少个样本
-        self.model.fit(self.dataset.X_train,self.dataset.Y_train,epochs=7,batch_size=20)
+        self.model.fit(self.dataset.X_train,self.dataset.Y_train,epochs=10,batch_size=20)
 
     def evaluate_model(self):
         print('\nTesting---------------')
